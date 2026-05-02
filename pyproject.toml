@@ -1,0 +1,11 @@
+[project]
+name = "ai_projects"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+  "beautifulsoup4",
+  "ipython",
+  "openai",
+  "python-dotenv",
+  "requests",
+]
