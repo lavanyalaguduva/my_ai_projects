@@ -1,15 +1,8 @@
-import os
-from dotenv import load_dotenv
-import openai
-from scraper import fetch_website_contents
 from IPython.display import Markdown, display
 from openai import OpenAI
 
-load_dotenv()
-openai_api_key = os.getenv("OPENAI_API_KEY")
+from utils.scraper import fetch_website_contents_playwright
 
-if not openai_api_key:
-    raise ValueError("OPENAI_API_KEY is not set")
 
 system_prompt = """
 You are a snarky assistant that analyzes the contents of a website,
@@ -24,12 +17,14 @@ If it includes news or announcements, then summarize these too.
 
 """
 def summarize_website(url):
-    website_contents = fetch_website_contents(url)
+    ollama_base_url = "http://localhost:11434/v1"
+    ollama = OpenAI(base_url=ollama_base_url, api_key="ollama")
+    website_contents = fetch_website_contents_playwright(url)
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt_prefix + website_contents},
     ]
-    response =openai.chat.completions.create(model="gpt-5-nano", messages=messages)
+    response = ollama.chat.completions.create(model="llama3.2", messages=messages)
     print(response.choices[0].message.content)
     return response.choices[0].message.content
 

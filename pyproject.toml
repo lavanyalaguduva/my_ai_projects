@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "ai_projects"
 version = "0.1.0"
@@ -6,6 +10,10 @@ dependencies = [
   "beautifulsoup4",
   "ipython",
   "openai",
+  "playwright",
   "python-dotenv",
   "requests",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["utils"]

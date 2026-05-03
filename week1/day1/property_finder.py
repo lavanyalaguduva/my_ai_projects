@@ -1,9 +1,10 @@
 import os
 from dotenv import load_dotenv
 import openai
-from scraper import fetch_website_contents
 from IPython.display import Markdown, display
 from openai import OpenAI
+
+from utils.scraper import fetch_website_contents
 
 # TODO: revisit when I learn MCP as it needs a search tool
 load_dotenv()
